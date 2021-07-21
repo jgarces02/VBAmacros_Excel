@@ -1,0 +1,22 @@
+Function Abbreviate(strC As String) As String
+' Return the abbreviation for the supplied string.
+
+    Dim Company() As String     ' Company name array
+    Dim i As Byte, j As Byte    ' Number of words and counter.
+    Dim strAbbr As String       ' String of abbreviation.
+
+    Company() = Split(strC, " ")
+    i = UBound(Company())       ' Total number of elements.
+
+    If i > 0 Then               ' If more than one element.
+        For j = 0 To i
+            ' Build abbreviation if each word.
+            strAbbr = strAbbr & UCase(Left(Company(j), 1))
+        Next j
+    Else
+        strAbbr = strC    ' If one word only, return the word.
+    End If
+    Abbreviate = strAbbr           ' Value returned by the function.
+End Function
+
+'https://exceldashboardschool.com/abbreviate-names-or-words/
