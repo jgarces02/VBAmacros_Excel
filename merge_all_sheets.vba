@@ -26,17 +26,17 @@ Sub Merge_Sheets()
     Sheets.Add
     
     'Rename the new worksheet
-    ActiveSheet.Name = "ProfEx_Merged_Sheet"
+    ActiveSheet.Name = "Combined"
     
     'Loop through worksheets and copy the to your new worksheet
     For Each ws In Worksheets
         ws.Activate
         
         'Don't copy the merged sheet again
-        If ws.Name <> "ProfEx_Merged_Sheet" Then
+        If ws.Name <> "Combined" Then
             ws.UsedRange.Select
             Selection.Copy
-            Sheets("ProfEx_Merged_Sheet").Activate
+            Sheets("Combined").Activate
             
             'Select the last filled cell
             ActiveSheet.Range("A1048576").Select
