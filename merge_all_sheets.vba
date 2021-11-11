@@ -1,3 +1,4 @@
+'option 1 --> sheets must to have the same structure
 Sub Combine()
 Dim J As Integer
 On Error Resume Next
@@ -17,4 +18,41 @@ Next
 End Sub
 
 'https://www.extendoffice.com/excel/1184-excel-merge-multiple-worksheets-into-one.html?page_comment=26&PageSpeed=noscript
-'Sheets must to have the same structure!
+
+'-------------------------------------------
+'option 2 --> same structure is not needed
+Sub Merge_Sheets()
+    'Insert a new worksheet
+    Sheets.Add
+    
+    'Rename the new worksheet
+    ActiveSheet.Name = "ProfEx_Merged_Sheet"
+    
+    'Loop through worksheets and copy the to your new worksheet
+    For Each ws In Worksheets
+        ws.Activate
+        
+        'Don't copy the merged sheet again
+        If ws.Name <> "ProfEx_Merged_Sheet" Then
+            ws.UsedRange.Select
+            Selection.Copy
+            Sheets("ProfEx_Merged_Sheet").Activate
+            
+            'Select the last filled cell
+            ActiveSheet.Range("A1048576").Select
+            Selection.End(xlUp).Select
+            
+            'For the first worksheet you don't need to go down one cell
+            If ActiveCell.Address <> "$A$1" Then
+                ActiveCell.Offset(1, 0).Select
+            End If
+            
+            'Instead of just paste, you can also paste as link, as values etc.
+            ActiveSheet.Paste
+        
+        End If
+        
+    Next
+End Sub
+
+'https://professor-excel.com/merge-sheets/
